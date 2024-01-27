@@ -13,7 +13,10 @@ router.get('/blog', (req,res) => {
     // b.forEach(e => {
     //     console.log(e.title)
     // });
-    res.sendFile(path.join(__dirname, '../template/blogHome.html'))
+    // res.sendFile(path.join(__dirname, '../template/blogHome.html'))
+    res.render('../Views/blogHome', {
+        blogs: blogs
+    });
 })
 
 router.get('/blogpost/:slug', (req,res) => {
@@ -21,8 +24,12 @@ router.get('/blogpost/:slug', (req,res) => {
     myBlog = b.filter((e) => {
         return e.slug == req.params.slug
     })
-    console.log(myBlog)
-    res.sendFile(path.join(__dirname, '../template/blogPage.html'))
+    console.log(myBlog);
+    res.render('../Views/blogPage', {
+        title: myBlog[0].title,
+        content: myBlog[0].content
+    });
+    // res.sendFile(path.join(__dirname, '../template/blogPage.html'))
 })
 
 module.exports = router
